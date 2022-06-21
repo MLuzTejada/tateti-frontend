@@ -1,0 +1,80 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  text-align: center;
+}
+
+.board-row {
+  display: flex;
+}
+
+.form_label {
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.input {
+  margin-bottom: 10px;
+}
+
+.start_button {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.square {
+  background: #2C3E50;
+  border: 1px solid #999;
+  float: left;
+  font-size: x-large;
+  font-weight: bold;
+  line-height: 34px;
+  height: 120px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  width: 120px;
+  margin: 5px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.score-board {
+  width: 350px;
+  display: grid;
+  grid-auto-flow: column;
+  margin-top: 5px;
+}
+
+.score-board div {
+  color: black;
+  text-align: center;
+  font-size: 2em;
+  padding: 5px;
+  font-weight: bold;
+  background-color: #EC7063;
+}
+
+.score-board div:first-child {
+  background-color: #5DADE2;
+}
+
+.other_game {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  background-color: #F6DDCC;
+  cursor: pointer;
+  border: 1px solid #999;
+  width: 170px;
+  font-size: medium;
+  border-radius: 4px;
+  height: 30px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
