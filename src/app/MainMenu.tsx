@@ -26,7 +26,6 @@ export default function MainMenu(props: MenuProps) {
                 navigate("/");
             }
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -44,7 +43,6 @@ export default function MainMenu(props: MenuProps) {
                 navigate("/");
             }
         } catch (error: any) {
-            console.log(error);
             setError(error.response.data.message);
             throw error;
         }

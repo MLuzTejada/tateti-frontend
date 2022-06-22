@@ -53,12 +53,9 @@ export default function Game(props: BoardProps) {
 
     async function getBoard() {
       const response = await getBoardByPlayerId(user?.id);
-      console.log("board: ", response);
-      console.log("token: ", response.turn);
       setGameToken(response.token);
       setBoard({ squares: response.squares, colors: response.colors });
       setTurn({ ...turn, piece: response.turn });
-      console.log(turn.piece);
       if (response.tie) {
         setInfo("Es un empate");
         setDisableBoard(true);
@@ -89,8 +86,7 @@ export default function Game(props: BoardProps) {
   const cleanBoard = async () => {
     try {
       if (user) {
-        const response = await otherRound(gameToken, user.id);
-        console.log("response other round", response);
+        await otherRound(gameToken, user.id);
       }
     } catch (error: any) {
       setError(error.response.data.message);

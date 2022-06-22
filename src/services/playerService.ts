@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { baseUrl } from '../config/default';
+import { Player } from '../interfaces/player';
 import { updateSessionToken, cleanupSessionToken } from "../store/tokenStore"
 import { cleanupSessionUser, updateSessionUser } from "../store/userStore"
 
@@ -16,15 +17,11 @@ export interface Token {
   token: string
 }
 
-export async function getPlayerById(id: string): Promise<any> { //TODO revisar si deberia ser number el id
+export async function getPlayerById(id: number): Promise<Player> {
   try {
-    const url2 = `https://localhost:3000/players/${id}`;
-
-    const { data } = await axios.get<any>(url2);
-    console.log(data);
+    const { data } = await axios.get<Player>(baseUrl + `/players/${id}`);
     return data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 
@@ -34,9 +31,8 @@ export async function login(params: {
   name: string
   password: string
 }): Promise<Token> {
-  console.log("entro al login");
+
   const { data } = await axios.post(baseUrl + "/login", params);
-  console.log("response login: ", data);
 
   setCurrentToken(data.token)
   updateSessionToken(data.token)
@@ -61,7 +57,7 @@ export function getCurrentUser(): User | undefined {
   return result ? result as unknown as User : undefined;
 }
 
-export async function logout(id: number): Promise<void> {
+export async function logout(id: number) {
   localStorage.removeItem("token")
   localStorage.removeItem("user")
 
@@ -79,7 +75,6 @@ export async function logout(id: number): Promise<void> {
 }
 
 export async function reloadCurrentUser(user: User): Promise<User> {
-  console.log("dentro del reload: ", user);
   localStorage.setItem("user", JSON.stringify(user));
   updateSessionUser(user);
   return user;
@@ -91,7 +86,6 @@ export async function newUser(params: {
 }): Promise<Token> {
 
   const { data } = await axios.post(baseUrl + "/register", params);
-  console.log(data);
   setCurrentToken(data.token);
   updateSessionToken(data.token);
   void reloadCurrentUser(data).then()
@@ -99,11 +93,8 @@ export async function newUser(params: {
 }
 
 if (getCurrentToken()) {
-  console.log("entro al if del final");
   const currentUser = getCurrentUser()
   const currentToken = getCurrentToken()
-  console.log("currentUser", currentUser);
-  console.log("currentToken", currentToken);
   if (currentUser !== undefined && currentToken !== undefined) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     axios.defaults.headers.common.Authorization = currentToken

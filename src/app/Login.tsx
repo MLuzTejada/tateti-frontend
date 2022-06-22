@@ -19,7 +19,6 @@ export default function Login() {
             })
             navigate("/menu");
         } catch (error) {
-            console.log(error);
             setError("Revisa los datos que ingresaste");
             throw error;
         }

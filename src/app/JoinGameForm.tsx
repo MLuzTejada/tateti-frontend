@@ -30,7 +30,6 @@ export default function JoinGameForm(props: JoinGameFormProps) {
                 navigate("/");
             }
         } catch (error: any) {
-            console.log(error);
             setError(error.response.data.message);
             throw error;
         }
